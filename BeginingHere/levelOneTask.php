@@ -31,15 +31,22 @@ $text = "ну что.      не смотрел еще black mesa.я собира
  
 /* Делает первую букву в строке заглавной */
 function makeFirstLetterUppercase($text) {
-    return  'не работает';  /* .... */
+
+    $regexp = '//';
+    return  'не работает';
 }
  
-/* исправляет текст */
+/* Исправляет текст */
 function fixText($text) {
  
     /* ... */
  
 }
- 
+
+$doSplit = preg_split("/(?<=[.])/u", $text, PREG_SPLIT_NO_EMPTY);
+var_dump($doSplit);
+
 $result = fixText($text);
 echo "{$result}\n";
+
+// preg_split("/(?<=\d)/u", "12abc3")
