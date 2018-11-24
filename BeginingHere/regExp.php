@@ -29,3 +29,15 @@ foreach ($lines as $line)
 
 // Пример поиска телефонных номеров (любые 7 цифр после 8911)
 $phoneNumbers = "/8911[0 - 9]{7}/i";
+
+$inputData = '0123';
+// любые цифры от 0 до 9 - [0-9] стоящие отдельно ^...$ подряд в четвером {4} 
+$regexp1 = '/^[0-9]{4}$/';
+if (preg_match($regexp1, $inputData)) 
+{
+    echo "All right\n";
+}
+else
+{
+    echo "Please input number from 0000 to 9999";
+}

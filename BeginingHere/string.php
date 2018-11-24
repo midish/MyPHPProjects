@@ -32,3 +32,12 @@ $codeTable = array(
 );
 $cipher = strtr($text, $codeTable);
 echo "Было: {$text}, стало {$cipher}\n";
+
+
+// Ф-ция printf(); работает в пхп почти также как в Си
+
+$city = 'London';
+$percent = 22 / 41 * 100;
+$total = 1000;
+
+printf("I have %.2f bitcoins and live in %d floor in %s\n", $percent, $total, $city);
