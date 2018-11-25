@@ -24,29 +24,50 @@ mb_internal_encoding('utf-8');
 
 */
 
-$text = "ну что.      не смотрел еще black mesa.я собирался скачать  ,но все как-то некогда было.";
-// Для тестов
-// $text = 'roses are red,and violets are blue.whatever you do i'll keep it for you.';
-// $text = 'привет.есть 2 функции,preg_split и explode ,не понимаю,в чем между ними разница.';
+if (!function_exists('mb_ucfirst') && extension_loaded('mbstring'))
+{
+    /**
+     * mb_ucfirst - преобразует первый символ в верхний регистр
+     * @param string $str - строка
+     * @param string $encoding - кодировка, по-умолчанию UTF-8
+     * @return string
+     */
+    function mb_ucfirst($str, $encoding='UTF-8')
+    {
+        $str = mb_ereg_replace('^[\ ]+', '', $str);
+        $str = mb_strtoupper(mb_substr($str, 0, 1, $encoding), $encoding).
+               mb_substr($str, 1, mb_strlen($str), $encoding);
+        return $str;
+    }
+}
+
+//$text = "ну что.      не смотрел еще black mesa.я собирался скачать  ,но все как-то некогда было.";
+//$text = 'roses are red,and violets are blue.whatever you do i\'ll keep it for you.';
+$text = "много их в Петербурге,молоденьких дур,сегодня в атласе да бархате,а завтра , поглядишь , метут улицу вместе с голью кабацкою...в самом деле ,что было бы с нами ,если бы вместо общеудобного правила:чин чина почитай , ввелось в употребление другое,например:ум ума почитай?какие возникли бы споры!";
  
 /* Делает первую букву в строке заглавной */
-function makeFirstLetterUppercase($text) {
+function makeFirstLetterUppercase($str) {
 
-    $regexp = '//';
-    return  'не работает';
+    for ($i = 0; $i < count($str); $i++)
+    {
+        $newStr[$i] = mb_ucfirst($str[$i]);
+    }
+
+    return $newStr;
 }
  
 /* Исправляет текст */
-function fixText($text) {
+function fixText($str1) {
  
-    /* ... */
+    return preg_replace("/([^\s]?)\s?([.,?!:;])\s?([^\s]?)/u", "\$1\$2 \$3" , $str1);
  
 }
 
-$doSplit = preg_split("/(?<=[.])/u", $text, PREG_SPLIT_NO_EMPTY);
-var_dump($doSplit);
+// Разделяю на массив отдельных предложений
+$text = preg_split("/(?<=[.])/u", $text, 0, PREG_SPLIT_NO_EMPTY);
+// Делаю все первые буквы заглавными
+$text = makeFirstLetterUppercase($text);
+$text = implode($text);
 
 $result = fixText($text);
 echo "{$result}\n";
-
-// preg_split("/(?<=\d)/u", "12abc3")
