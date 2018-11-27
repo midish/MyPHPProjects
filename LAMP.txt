@@ -1,0 +1,44 @@
+Установка и настройка LAMP. 
+
+    Часть 1
+
+sudo su - переход в режим суперюзера
+apt-get update - обновление пакетов
+apt-get install apache2 - установка веб-сервера апаче
+
+service apache2 stop - остановить работу апаче
+service apache2 start - возобновить
+
+apt-get install mysql-server - установака mysql// pass root
+apt-get install php php-mcrypt php-mysql libapache2-mod-php
+                php - пакет php
+                php-mcrypt - специальный пакет для работы с некоторыми возможностями шифрования
+                php-mysql - пакет для поддержки работы mysql в php
+                libapache2-mod-php - модуль для сервера апаче
+
+    Часть 2
+
+cd /var/www - здесь храняться сайты
+mkdir test-lamp.local - создать папку для нового сайт, имя папки будет соответсововать имени сайту
+nano index.php - создать и открыть тестовый фаил
+    сохранить файл Ctrl+X press Y and Ctrl+X again
+
+cd /etc/apache2/sites-available/ - здесь храняться конфигурационные файлы сайтов
+cp 000-default.conf test-lamp.local.conf - копирует файл 000-default.conf в test-lamp.local.conf
+
+    В файле test-lamp.local.conf
+    ServerName test-lamp.local - указываем имя сервера
+    ServerAdmin webmaster@localhost - эмаил админа сайта
+    DocumentRoot /var/www/test-lamp.local - директория хранящая файлы сайта
+    
+cd ..
+cd sites-enabled/ - папка со включенными сайтами
+a2ensite test-lamp.local - включает сайт
+service apache2 reload - To activate the new configuration, you need to run
+
+    Часть 3
+
+nano /etc/hosts
+    127.0.0.1       test-lamp.local - добавитв hosts
+
+Теперь можно перейт на сайт test-lamp.local/ который работает локально на моём компьютере
