@@ -10,6 +10,7 @@ class Car
     public $fuel;
     public $brand;
 
+
     // Это МЕТОД
     public function test()
     {
@@ -49,6 +50,17 @@ class Car
         $this->fuel = $fuel;
         $this->color = $color;
     }
+
+    // Объявление константы
+    const WHEELS = 4;
+
+    public function test1()
+    {
+        // Вызов константы внутри метода
+        echo Car::WHEELS;
+        // Вместо имени класса можно использовать псевдопеременную self
+        echo self::WHEELS;
+    }
 }
 
 // Это ОБЪЕКТЫ, экземпляры класса Car
@@ -82,3 +94,36 @@ echo '<br>Car 3 time: '.$car3->tripTime(1000);
 $car4 = new Car();
 print_r($car4);
 echo '<br>Car 4 time: '.$car4->tripTime(1000);
+
+// Вызов константы
+echo "<br>".Car::WHEELS;
+// Вызов константы из МЕТОДА
+$car1->test1();
+
+// Статические МЕТОДЫ и СВОЙСТВА принадлежат только КЛАССУ
+// поэтому вызывать их надо только из КЛАССА
+
+class MyCar
+{
+    // Статическое СВОЙСТВО в КЛАССЕ MyCar
+    public static $engine = 1;
+
+    // Статический МЕТОД в КЛАССЕ MyCar
+    public static function whatIsIt()
+    {
+        echo 'Автомобиль - моторное дорожное средство';
+    }
+
+    // Внутри КЛАССА можно обращаться к статик МЕТОДАМ и СВОЙСТВАМ
+    // через ключевое слово self
+    public function test()
+    {
+        echo self::$engine;
+        self::whatIsIt();
+    }
+}
+
+// Вызов статического МЕТОДА и СВОЙСТВА 
+// Можно вызывать статик МЕТОДЫ и СВОЙСТВА не создавая ОБЪЕКТ
+echo "<br>".MyCar::$engine."<br>";
+MyCar::whatIsIt();
