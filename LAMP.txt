@@ -15,6 +15,9 @@ apt-get install php php-mcrypt php-mysql libapache2-mod-php
                 php-mcrypt - специальный пакет для работы с некоторыми возможностями шифрования
                 php-mysql - пакет для поддержки работы mysql в php
                 libapache2-mod-php - модуль для сервера апаче
+apt-get install phpmyadmin php-mbstring php-gettext
+phpenmod mcrypt
+phpenmod mbstring
 
     Часть 2
 
@@ -42,3 +45,5 @@ nano /etc/hosts
     127.0.0.1       test-lamp.local - добавитв hosts
 
 Теперь можно перейт на сайт test-lamp.local/ который работает локально на моём компьютере
+
+chown -R midish /var/www - доступ к папке
