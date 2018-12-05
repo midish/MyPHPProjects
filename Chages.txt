@@ -1,1 +1,19 @@
+ *1*
 "Ctrl + ," them find Minimap and disable
+
+ *2*
+// Включает модуль rewrite
+sudo a2enmod rewrite
+sudo service apache2 restart
+
+ *3*
+в файле /etc/apache2/apache.conf
+нужно
+
+<Directory /var/www/>
+Options Indexes FollowSymLinks
+AllowOverride All
+Require all granted
+</Directory>
+
+ну и перезапуск апача﻿
