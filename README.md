@@ -1,2 +1,2 @@
 # MyPHPProjects
-There are all my PHP projects
+There is all my PHP projects
