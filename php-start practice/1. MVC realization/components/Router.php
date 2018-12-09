@@ -21,8 +21,8 @@ class Router
     {
         if (!empty($_SERVER['REQUEST_URI'])) 
         {
-            //return trim($_SERVER['REQUEST_URI'], '/mvcrealize/');
-            return substr($_SERVER['REQUEST_URI'], strlen('/mvcrealize/'));
+            return trim($_SERVER['REQUEST_URI'], '/');
+            //return substr($_SERVER['REQUEST_URI'], strlen('/'));
         }
     }
 
@@ -41,12 +41,25 @@ class Router
         {
             // echo "<br>$uriPattern -> $path";
             // Сравниваем $uriPattern и $uri
-            if (preg_match("~$uriPattern~", $uri))
+            if (preg_match("~^$uriPattern~", $uri))
             {
+
+                // echo '<br>Где ищем (запрос, который набрал пользователь): ' . $uri;
+                // echo '<br>Что ищем (совпадение из правила): ' . $uriPattern;
+                // echo '<br>Кто обрабатывает: ' . $path;
+
+                /**
+                 * В $uri ищем параметры (например ../sport/114) по определеннону
+                 * который содержится в ~$uriPattern~
+                 * если параметры найдены, то в строку $path подставляются эти параметры
+                 *  */
+                $internalRoute = preg_replace("~^$uriPattern~", $path, $uri);
+                
+                //echo '<br>Нужно сформировать: ' . $internalRoute;
                 //echo $path;
 
                 // Ф-ция explode делит строку на '/' в $path
-                $segments = explode('/', $path);
+                $segments = explode('/', $internalRoute);
 
                 // echo '<pre>';
                 // print_r($segments);
@@ -62,8 +75,11 @@ class Router
                 $actionName = 'action'.ucfirst(array_shift($segments));
                 //echo $actionName;
 
-                //echo '<br>Класс: '.$controllerName;
-                //echo '<br>Метод: '.$actionName;
+                // echo '<br>Класс: '.$controllerName;
+                // echo '<br>Метод: '.$actionName;
+                $parameters = $segments;
+                // echo '<pre>';
+                //print_r($parameters);
 
                 // Подключить файл класса-контроллера
                 // определяем файл который нужно подключить
@@ -76,7 +92,19 @@ class Router
 
                 // Создать ОБЪЕКТ, вызвать МЕТОД (т.е. action)
                 $controllerObject = new $controllerName;
-                $result = $controllerObject->$actionName();
+
+                // $result = $controllerObject->$actionName($parameters);
+                // if ($result != null) {
+                //     break;
+                // }
+
+                /**
+                 * Вызывает action который содержится в $actionName у ОБЪЕКТА $controllerObject
+                 * при этом передаёт ему массив с $parameters 
+                 */
+                $result = call_user_func_array(array($controllerObject, $actionName), $parameters);
+                
+                // Если МЕТОД контроллера успешно вызван, завершаем работу роутера
                 if ($result != null) {
                     break;
                 }

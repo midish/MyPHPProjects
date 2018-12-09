@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 // FRONT CONTROLLER
 
@@ -13,8 +13,9 @@ error_reporting(E_ALL);
 // dirname() - указывает полный путь к файлу на диске
 define('ROOT', dirname(__FILE__));
 require_once(ROOT.'/components/Router.php');
+require_once(ROOT.'/components/Db.php');
 
-//print_r(ROOT);
+print_r(ROOT);
 
 
 // 3. Установка соединения с БД
