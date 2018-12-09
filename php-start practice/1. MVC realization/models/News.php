@@ -49,7 +49,7 @@ class News
         $newList = array();
 
         // выбрать 10 последних новостей из таблицы новости
-        $result = $db->query('SELECT id, title, date, short_content '
+        $result = $db->query('SELECT id, title, date, short_content, author_name '
             . 'FROM news '
             . 'ORDER BY date DESC '
             . 'LIMIT 10');
@@ -60,6 +60,7 @@ class News
             $newList[$i]['title'] = $row['title'];
             $newList[$i]['date'] = $row['date'];
             $newList[$i]['short_content'] = $row['short_content'];
+            $newList[$i]['author_name'] = $row['author_name'];
             $i++;
         }
 

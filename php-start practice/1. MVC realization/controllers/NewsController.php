@@ -9,11 +9,12 @@ class NewsController
         $newsList = array();
         $newsList = News::getNewsList();
 
-        echo '<pre>';
-        print_r($newsList);
-        echo '</pre>';
+        // echo '<pre>';
+        // print_r($newsList);
+        // echo '</pre>';
+        // echo 'actionIndex';
 
-        echo 'actionIndex';
+        require_once(ROOT.'/views/news/index.php');
 
         return true;
     }
@@ -30,8 +31,8 @@ class NewsController
 
             echo 'actionView';
 
-            return true;
         }
         
+        return true;
     }
 }
