@@ -1,6 +1,6 @@
 <?php
 
-error_reporting(-1);
+error_reporting(E_ALL);
 mb_internal_encoding('utf-8');
 
 // Объявляет новый класс Question
@@ -14,6 +14,8 @@ class Question
     public $points = 5;     // число баллов, по умолчанию 5
     public $answers;        // варианты ответов
     public $correctAnswer;  // правильный ответ
+
+    public $clue;           // это СВОЙСТВО будет хранить подсказку
 }
 
 // Создание новых ОБЪЕКТОВ класса Question
@@ -80,7 +82,10 @@ function printQuestions($questions)
 
         $number++; 
     }
+    var_dump($question);
+
 }
+
 
 function checkAnswers($questions, $answers)
 {
